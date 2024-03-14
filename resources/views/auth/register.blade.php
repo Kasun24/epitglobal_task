@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title }} | Epit global Test</title>
 
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 
     <link rel="stylesheet" href="/assets/plugins/fontawesome-free/css/all.min.css">
 
@@ -26,57 +25,51 @@
                 <a href="/" class="h1"><b>User</b> Register</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Register a new membership</p>
+                <p class="login-box-msg">Register as new user</p>
                 <form class="needs-validation" novalidate action="/register" method="POST">
                     @csrf
                     <div class="input-group mb-3">
-                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                            placeholder="Full name" value="{{ old('name') }}" required>
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" placeholder="Full name" value="{{ old('name') }}" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
                         </div>
                         @error('name')
-                            <span class="invalid-feedback text-danger">{{ $message }}</span>
+                        <span class="invalid-feedback text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="input-group mb-3">
-                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                            placeholder="Email" value="{{ old('email') }}" required>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email" value="{{ old('email') }}" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
                         @error('email')
-                            <span class="invalid-feedback text-danger">{{ $message }}</span>
+                        <span class="invalid-feedback text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" name="password" id="password"
-                            class="form-control @error('password') is-invalid @enderror" placeholder="Password"
-                            required>
+                        <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror" placeholder="Password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
                         @error('password')
-                            <span class="invalid-feedback text-danger">{{ $message }}</span>
+                        <span class="invalid-feedback text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="input-group mb-3">
-                        <input type="password" name="passwordConfirm" id="passwordConfirm"
-                            class="form-control @error('passwordConfirm') is-invalid @enderror"
-                            placeholder="Retype password" required>
+                        <input type="password" name="passwordConfirm" id="passwordConfirm" class="form-control @error('passwordConfirm') is-invalid @enderror" placeholder="Retype password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
                         @error('passwordConfirm')
-                            <span class="invalid-feedback text-danger">{{ $message }}</span>
+                        <span class="invalid-feedback text-danger">{{ $message }}</span>
                         @enderror
                     </div>
                     <div class="row">
@@ -95,7 +88,9 @@
 
                     </div>
                 </form>
-                <a href="/login" class="text-center">I already have a membership</a>
+                <p class="mt-3 mb-0">
+                    <a href="/login" class="text-center">I have already registered</a>
+                </p>
             </div>
 
         </div>

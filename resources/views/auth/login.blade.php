@@ -28,7 +28,7 @@
                 <a href="/" class="h1"><b>User</b> Login</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">Log in to start your session</p>
                 <form class="needs-validation" novalidate action="/login" method="POST">
                     @csrf
                     <div class="input-group mb-3">
@@ -60,8 +60,8 @@
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                         </div>
-                        <p class="mb-0">
-                            <a href="/register" class="text-center">Register a new membership</a>
+                        <p class="mt-3 mb-0">
+                            <a href="/register" class="text-center">Register as new user </a>
                         </p>
                     </div>
                 </form>
