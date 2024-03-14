@@ -12,14 +12,14 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $product = Product::orderBy('name', 'asc')->get();
-
-        return view('product.index', [
-            'product' => $product
-        ]);
+        $perPage = 10; 
+        $product = Product::orderBy('name', 'asc')->paginate($perPage);
+    
+        return view('product.index', compact('product', 'perPage'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
