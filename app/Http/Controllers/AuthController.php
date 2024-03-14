@@ -7,12 +7,12 @@ use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
     public function index()
     {
-
         return view('auth.login', [
             'title' => 'Login',
         ]);
@@ -21,22 +21,19 @@ class AuthController extends Controller
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required',
-            'password' => 'required'
+            'email' => 'required|email:dns', 
+            'password' => 'required',
         ]);
-
-
-        User::where('email', $credentials);
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-
-            Alert::success('Success', 'Login success !');
+            Alert::success('Success', 'Login successful!');
             return redirect()->intended('/dashboard');
-        } else {
-            Alert::error('Error', 'Login failed !');
-            return redirect('/login');
         }
+
+        throw ValidationException::withMessages([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
 
     public function register()
@@ -50,16 +47,16 @@ class AuthController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'email' => 'required|unique:users',
+            'email' => 'required|email:dns|unique:users',
             'password' => 'required',
-            'passwordConfirm' => 'required|same:password'
+            'passwordConfirm' => 'required|same:password',
         ]);
 
         $validated['password'] = Hash::make($request['password']);
 
         $user = User::create($validated);
 
-        Alert::success('Success', 'Register user has been successfully !');
+        Alert::success('Success', 'Register user has been successfully created!');
         return redirect('/login');
     }
 
@@ -69,7 +66,8 @@ class AuthController extends Controller
 
         request()->session()->invalidate();
         request()->session()->regenerateToken();
-        Alert::success('Success', 'Log out success !');
+
+        Alert::success('Success', 'Log out successful!');
         return redirect('/login');
     }
 }
