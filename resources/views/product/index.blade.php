@@ -1,4 +1,4 @@
-@extends('template.main')
+@extends('layouts.main')
 @section('title', 'Product')
 @section('content')
 
@@ -36,7 +36,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                            <table id="example1" class="table table-striped table-bordered table-hover text-center" style="width: 100%">
+                            <table class="table table-striped table-bordered table-hover text-center" style="width: 100%">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -57,7 +57,7 @@
                                         <td>{{ $data->category }}</td>
                                         <td> {{ $data->supplier }}</td>
                                         <td>{{ $data->stock }}</td>
-                                        <td>Rp. {{ number_format($data->price, 0) }}</td>
+                                        <td>LKR {{ number_format($data->price, 0) }}</td>
                                         <td>{{ $data->note }}</td>
                                         <td>
                                             <form class="d-inline" action="/product/{{ $data->product_id }}/edit" method="GET">
@@ -76,6 +76,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="float-right mt-3">
+                                {{ $product->links() }}
+                            </div>
                         </div>
                         <!-- /.card-body -->
                     </div>
