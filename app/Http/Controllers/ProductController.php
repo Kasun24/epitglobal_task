@@ -7,22 +7,31 @@ use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
 use Exception;
 
+/**
+ * ProductController class
+ *
+ * @author <NAME>
+ */
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
-        $perPage = 10; 
+        $perPage = 10; // default value
         $product = Product::orderBy('name', 'asc')->paginate($perPage);
     
         return view('product.index', compact('product', 'perPage'));
     }
-    
 
     /**
      * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -31,6 +40,9 @@ class ProductController extends Controller
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -45,12 +57,15 @@ class ProductController extends Controller
 
         $product = Product::create($request->all());
 
-        Alert::success('Success', 'Product has been saved !');
+        Alert::success('Success', 'Product has been saved!');
         return redirect('/product');
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param Product $product
+     * @return void
      */
     public function show(Product $product)
     {
@@ -59,6 +74,9 @@ class ProductController extends Controller
 
     /**
      * Show the form for editing the specified resource.
+     *
+     * @param int $product_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($product_id)
     {
@@ -71,11 +89,15 @@ class ProductController extends Controller
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param Request $request
+     * @param int $product_id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $product_id)
     {
         $validated = $request->validate([
-            'name' => 'required|max:100|unique:products,name,' . $product_id . ',product_id',
+            'name' => 'required|max:100|unique:products,name,'. $product_id. ',product_id',
             'category' => 'required',
             'supplier' => 'required',
             'stock' => 'required',
@@ -86,12 +108,15 @@ class ProductController extends Controller
         $product = Product::findOrFail($product_id);
         $product->update($validated);
 
-        Alert::info('Success', 'Product has been updated !');
+        Alert::info('Success', 'Product has been updated!');
         return redirect('/product');
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param int $product_id
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($product_id)
     {
@@ -100,10 +125,10 @@ class ProductController extends Controller
 
             $deletedproduct->delete();
 
-            Alert::error('Success', 'Product has been deleted !');
+            Alert::error('Success', 'Product has been deleted!');
             return redirect('/product');
         } catch (Exception $ex) {
-            Alert::warning('Error', 'Cant deleted, Product already used !');
+            Alert::warning('Error', 'Cant deleted, Product already used!');
             return redirect('/product');
         }
     }

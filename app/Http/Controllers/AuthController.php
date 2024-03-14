@@ -9,8 +9,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
+/**
+ * Class AuthController
+ * @package App\Http\Controllers
+ */
 class AuthController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         return view('auth.login', [
@@ -18,10 +27,17 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Authenticate the user.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function authenticate(Request $request)
     {
         $credentials = $request->validate([
-            'email' => 'required|email:dns', 
+            'email' => 'required|email:dns',
             'password' => 'required',
         ]);
 
@@ -36,6 +52,11 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function register()
     {
         return view('auth.register', [
@@ -43,6 +64,13 @@ class AuthController extends Controller
         ]);
     }
 
+    /**
+     * Process the registration.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function process(Request $request)
     {
         $validated = $request->validate([
@@ -60,6 +88,12 @@ class AuthController extends Controller
         return redirect('/login');
     }
 
+    /**
+     * Log the user out.
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout(Request $request)
     {
         Auth::logout();

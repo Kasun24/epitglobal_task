@@ -1,4 +1,4 @@
-@extends('template.main')
+@extends('layouts.main')
 @section('title', 'Product')
 @section('content')
 
